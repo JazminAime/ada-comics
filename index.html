@@ -8,6 +8,11 @@
       rel="icon"
       href="/assets/favicon/favicon-mujer-maravilla.png"
       type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Ada Comics</title>
   </head>
@@ -25,10 +30,41 @@
         </h1>
       </div>
     </header>
-    <main>
-      <section></section>
+    <main class="comic-principal">
+      <div class="search-comics">
+        <h2 class="search-title">Búsqueda</h2>
+        <div class="container-search">
+          <div class="input-search-container">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              name="input-search-comic"
+              id="input-search-comic"
+              placeholder="Ingresá tu búsqueda" />
+          </div>
+          <div class="input-search-container no-change-color">
+            <div class="filter-container">
+              <label for="type">TIPO</label>
+              <select class="sort-gral" name="type" id="sort-type">
+                <option value="COMICS">COMICS</option>
+                <option value="PERSONAJES">PERSONAJES</option>
+              </select>
+              <label for="order">ORDEN</label>
+              <select class="sort-gral" name="order" id="sort-order">
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
+              </select>
+              <button class="btn-search">BUSCAR</button>
+            </div>
+          </div>
+        </div>
+        <h2 class="search-title">Resultados</h2>
+        <p class="total-results">1564 RESULTADOS</p>
+      </div>
     </main>
-    <footer></footer>
+    <footer class="footer-comic">
+      <p class="footer-text">Hecho con 💛💪 por Jazmín</p>
+    </footer>
     <script src="app.js"></script>
   </body>
 </html>
