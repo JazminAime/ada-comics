@@ -1,10 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Bangers&family=Sofadi+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Kay+Pho+Du:wght@400;500;600;700&family=Sofadi+One&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Bangers";
+  font-family: "Barlow";
 }
 
 .header-background {
@@ -36,6 +37,7 @@
   letter-spacing: 10px;
   font-weight: bold;
   color: wheat;
+  font-family: "Bangers";
   background: linear-gradient(
     90deg,
     rgba(131, 58, 180, 1) 0%,
@@ -62,4 +64,138 @@
   100% {
     transform: rotateY(360deg);
   }
+}
+
+.comic-principal {
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f2d0;
+}
+
+.search-title {
+  font-weight: 600;
+  padding: 50px;
+  font-size: 30px;
+}
+
+.container-search {
+  display: flex;
+}
+
+.input-search-container {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  margin-left: 40px;
+  transition: color 0.3s ease-in-out;
+}
+
+.input-search-container:not(.no-change-color):hover {
+  color: #a80f73;
+}
+
+#input-search-comic {
+  height: 35px;
+  margin-left: 5px;
+  padding: 22px 8px;
+  width: 90%;
+  border-bottom: solid 2px black;
+  background-color: #f0f2d0;
+  font-size: 25px;
+  outline: none;
+}
+
+#input-search-comic:hover {
+  border-color: #a80f73;
+  transition: border-color 0.3s ease-in-out;
+}
+
+#input-search-comic:focus {
+  border: 1px solid #a80f73;
+}
+
+.filter-container {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-container:hover {
+  color: black;
+}
+
+#sort-type {
+  margin-right: 30px;
+}
+
+#sort-order {
+  margin-right: 40px;
+}
+
+.sort-gral {
+  font-size: 18px;
+  padding: 6px;
+  background-color: whitesmoke;
+  transition: color 0.3s ease-in-out;
+  font-weight: 500;
+}
+
+.sort-gral:hover {
+  color: orangered;
+}
+
+label {
+  font-size: 20px;
+  font-weight: 600;
+  transition: color 0.2s ease-in-out;
+}
+
+.btn-search {
+  font-size: 22px;
+  padding: 10px 15px;
+  color: white;
+  font-weight: bolder;
+  border-radius: 25px;
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 29, 1) 50%,
+    rgba(252, 176, 69, 1) 100%
+  );
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-search:hover {
+  transform: scale(1.1);
+}
+
+.btn-search:active {
+  opacity: 0.8;
+
+  transition: opacity 0.2s ease-in-out;
+}
+
+.total-results {
+  margin-left: 55px;
+  font-size: 18px;
+  color: grey;
+  font-weight: 600;
+}
+
+.footer-comic {
+  height: 100px;
+  background: -webkit-linear-gradient(90deg, #843928, #b70061, #0406fd);
+  background: linear-gradient(90deg, #843928, #b70061, #0406fd);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-text {
+  font-family: cursive;
+  font-size: 20px;
+  color: white;
+  letter-spacing: 0.5px;
 }
