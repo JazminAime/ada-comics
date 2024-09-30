@@ -25,7 +25,8 @@
           alt="Imagen de fondo marvel" />
       </div>
       <div class="title-comics">
-        <h1 class="letter-title text-4xl p-2 md:text-[55px] lg:p-5 md:p-5">
+        <h1
+          class="letter-title text-4xl p-3 sm:text-[55px] lg:p-5 md:p-5 sm:p-5">
           ADA COMICS
         </h1>
       </div>
@@ -33,28 +34,35 @@
     <main class="comic-principal">
       <div class="search-comics">
         <h2 class="search-title">Búsqueda</h2>
-        <div class="container-search">
-          <div class="input-search-container">
+        <div
+          class="container-search flex flex-col md:flex-col lg:flex-row pr-4 md:p-0">
+          <div class="input-search-container md:pr-0 pr-4">
             <i class="fas fa-search"></i>
             <input
+              class="w-full md:w-3/4 px-2"
               type="text"
               name="input-search-comic"
               id="input-search-comic"
               placeholder="Ingresá tu búsqueda" />
           </div>
-          <div class="input-search-container no-change-color">
-            <div class="filter-container">
-              <label for="type">TIPO</label>
-              <select class="sort-gral" name="type" id="sort-type">
-                <option value="COMICS">COMICS</option>
-                <option value="PERSONAJES">PERSONAJES</option>
-              </select>
-              <label for="order">ORDEN</label>
-              <select class="sort-gral" name="order" id="sort-order">
-                <option value="A-Z">A-Z</option>
-                <option value="Z-A">Z-A</option>
-              </select>
-              <button class="btn-search">BUSCAR</button>
+          <div class="input-search-container no-change-color md:pr-0 pr-4">
+            <div
+              class="filter-container mt-10 md:mt-10 lg:mt-0 flex items-center flex-col md:flex-row md:pr-0 pr-6"">
+              <div class="pb-5">
+                <label for="type">TIPO</label>
+                <select class="sort-gral" name="type" id="sort-type">
+                  <option value="COMICS">COMICS</option>
+                  <option value="PERSONAJES">PERSONAJES</option>
+                </select>
+              </div>
+              <div class="pb-5">
+                <label for="order">ORDEN</label>
+                <select class="sort-gral" name="order" id="sort-order">
+                  <option value="A-Z">A-Z</option>
+                  <option value="Z-A">Z-A</option>
+                </select>
+              </div>
+              <button class="btn-search mb-5">BUSCAR</button>
             </div>
           </div>
         </div>
