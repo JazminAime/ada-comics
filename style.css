@@ -223,3 +223,22 @@ label:hover::after {
   color: white;
   letter-spacing: 0.5px;
 }
+
+::-webkit-scrollbar {
+  width: 11px; 
+  height: 11px; /
+}
+
+::-webkit-scrollbar-track {
+  background: #3d3d3d;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #f08c00; 
+  border-radius: 10px; 
+  border: 1px solid #f0f0f0; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #c2770f;
+}
