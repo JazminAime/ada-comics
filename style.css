@@ -80,13 +80,15 @@
 
 .container-search {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .input-search-container {
   display: flex;
   align-items: center;
-  width: 50%;
-  margin-left: 40px;
+  width: 100%;
+  padding-left: 30px;
   transition: color 0.3s ease-in-out;
 }
 
@@ -116,10 +118,10 @@
 
 .filter-container {
   display: flex;
-  width: 90%;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 }
 
 .filter-container:hover {
@@ -150,7 +152,7 @@ label {
   font-size: 20px;
   font-weight: 600;
   position: relative;
-  overflow: hidden;
+  display: inline-block;
 }
 
 label::after {
@@ -158,20 +160,22 @@ label::after {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 100%;
+  width: 0;
   height: 1px;
   background: rgb(0, 0, 0);
-  transform: translateX(-100%);
+  transform: translateX(-5px);
   transition: transform 0.3s ease-in-out;
 }
 
 label:hover::after {
+  width: 100%;
   transform: translateX(0);
 }
 
 .btn-search {
   font-size: 22px;
   padding: 10px 15px;
+  margin-right: 8px;
   color: white;
   font-weight: bolder;
   border-radius: 25px;
@@ -190,7 +194,6 @@ label:hover::after {
 
 .btn-search:active {
   opacity: 0.8;
-
   transition: opacity 0.2s ease-in-out;
 }
 
