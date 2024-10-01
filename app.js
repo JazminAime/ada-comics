@@ -19,10 +19,7 @@ function createCard(card) {
   cardImage.alt = card.name;
 
   const cardName = document.createElement("h3");
-  cardName.textContent = card.name;
-
-  //   const descriptionCard = document.createElement("p");
-  //   descriptionCard.textContent = card.description;
+  cardName.textContent = card.name || card.title;
 
   cardItem.appendChild(cardImage);
   cardItem.appendChild(cardName);
@@ -35,22 +32,42 @@ function clearCards() {
   cardsContainer.innerHTML = "";
 }
 
+// TOTAL RESULTADOS
+const total = document.getElementById("total-results");
+let totalResults = 0;
+
+// Deshabilitar botones
+function disableButtons() {
+  firstPage.disabled = offset === 0;
+  prevPage.disabled = offset === 0;
+
+  const maxOffset = Math.floor((totalResults - 1) / limit) * limit;
+  nextPage.disabled = offset >= maxOffset;
+  lastPage.disabled = offset >= maxOffset;
+}
+
 // Funcion para obtener personajes o comics
 function fetchMarvelData(endpoint) {
   clearCards();
 
-  fetch(`${apiUrl}${endpoint}?ts=${ts}&apikey=${publicKey}&hash=${hash}`)
+  fetch(
+    `${apiUrl}${endpoint}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`
+  )
     .then((response) => response.json())
     .then((data) => {
+      totalResults = data.data.total;
+      total.textContent = `${totalResults} RESULTADOS`;
       const results = data.data.results;
       results.forEach((card) => createCard(card));
+      disableButtons();
     })
     .catch((error) => console.error("Error al obtener los datos:", error));
 }
 
 // Click boton buscar
 const searchButton = document.getElementById("btn-search");
-searchButton.addEventListener("click", () => {
+
+function btnSearch() {
   const selectedValue = selectedOption.value.toUpperCase();
 
   if (selectedValue === "PERSONAJES") {
@@ -58,9 +75,41 @@ searchButton.addEventListener("click", () => {
   } else if (selectedValue === "COMICS") {
     fetchMarvelData("comics");
   }
-});
+}
+
+searchButton.addEventListener("click", btnSearch);
 
 // Cargar comics al iniciar
 window.onload = () => fetchMarvelData("comics");
 
-// total, limite y count - paginado - funciones - almacenar datos - array
+// PAGINACION
+// const pagination = document.getElementById("pagination");
+const firstPage = document.getElementById("first-page");
+const prevPage = document.getElementById("prev-page");
+const nextPage = document.getElementById("next-page");
+const lastPage = document.getElementById("last-page");
+
+let limit = 20;
+let offset = 0;
+
+nextPage.addEventListener("click", () => {
+  offset = offset + limit;
+  btnSearch();
+});
+
+prevPage.addEventListener("click", () => {
+  if (offset > 0) {
+    offset = offset - limit;
+    btnSearch();
+  }
+});
+
+firstPage.addEventListener("click", () => {
+  offset = 0;
+  btnSearch();
+});
+
+lastPage.addEventListener("click", () => {
+  offset = Math.floor((totalResults - 1) / limit) * limit;
+  btnSearch();
+});

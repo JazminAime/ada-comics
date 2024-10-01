@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,10 +47,13 @@
           </div>
           <div class="input-search-container no-change-color md:pr-0 pr-4">
             <div
-              class="filter-container mt-10 md:mt-10 lg:mt-0 flex items-center flex-col md:flex-row md:pr-0 pr-6"">
+              class="filter-container mt-10 md:mt-10 lg:mt-0 flex items-center flex-col md:flex-row md:pr-0 pr-6">
               <div class="pb-5">
                 <label for="type">TIPO</label>
-                <select class="sort-gral sort-type" name="type" id="marvel-select">
+                <select
+                  class="sort-gral sort-type"
+                  name="type"
+                  id="marvel-select">
                   <option value="COMICS" selected>COMICS</option>
                   <option value="PERSONAJES">PERSONAJES</option>
                 </select>
@@ -67,9 +70,21 @@
           </div>
         </div>
         <h2 class="search-title">Resultados</h2>
-        <p class="total-results">1564 RESULTADOS</p>
-        <div id="cards-container">
-
+        <p id="total-results" class="total-results"></p>
+        <div id="cards-container"></div>
+        <div id="pagination">
+          <button id="first-page" class="btn-pag">
+            <i class="fas fa-angle-double-left text-4xl"></i>
+          </button>
+          <button id="prev-page" class="btn-pag">
+            <i class="fas fa-angle-left text-4xl"></i>
+          </button>
+          <button id="next-page" class="btn-pag">
+            <i class="fas fa-angle-right text-4xl"></i>
+          </button>
+          <button id="last-page" class="btn-pag">
+            <i class="fas fa-angle-double-right text-4xl"></i>
+          </button>
         </div>
       </div>
     </main>

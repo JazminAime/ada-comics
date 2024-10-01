@@ -69,13 +69,13 @@
 
 .comic-principal {
   width: 100%;
-  padding-bottom: 120px;
   background: linear-gradient(
     90deg,
     rgba(244, 213, 177, 1) 0%,
     rgba(250, 254, 221, 1) 35%,
     rgba(240, 214, 128, 1) 100%
   );
+  padding-bottom: 120px;
 }
 
 .search-title {
@@ -261,8 +261,8 @@ label:hover::after {
   height: auto;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
-  padding: 30px;
+  gap: 25px;
+  padding: 20px;
 }
 
 .card {
@@ -272,7 +272,7 @@ label:hover::after {
   display: flex;
   flex-direction: column;
   padding: 16px;
-  width: 300px;
+  width: 270px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -296,5 +296,30 @@ label:hover::after {
   text-transform: uppercase;
 }
 
+/* PAGINACION */
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding-top: 100px;
+}
+
+.btn-pag {
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 3px;
+}
+
+.btn-pag:hover {
+  background-color: rgb(97, 96, 93);
+  transition: background-color 0.3s ease;
+}
+
+/* BOTONES DESACTIVADOS */
+.btn-pag:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 
