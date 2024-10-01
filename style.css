@@ -316,4 +316,10 @@ label:hover::after {
   transition: background-color 0.3s ease;
 }
 
+/* BOTONES DESACTIVADOS */
+.btn-pag:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 

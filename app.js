@@ -36,6 +36,16 @@ function clearCards() {
 const total = document.getElementById("total-results");
 let totalResults = 0;
 
+// Deshabilitar botones
+function disableButtons() {
+  firstPage.disabled = offset === 0;
+  prevPage.disabled = offset === 0;
+
+  const maxOffset = Math.floor((totalResults - 1) / limit) * limit;
+  nextPage.disabled = offset >= maxOffset;
+  lastPage.disabled = offset >= maxOffset;
+}
+
 // Funcion para obtener personajes o comics
 function fetchMarvelData(endpoint) {
   clearCards();
@@ -49,6 +59,7 @@ function fetchMarvelData(endpoint) {
       total.textContent = `${totalResults} RESULTADOS`;
       const results = data.data.results;
       results.forEach((card) => createCard(card));
+      disableButtons();
     })
     .catch((error) => console.error("Error al obtener los datos:", error));
 }
