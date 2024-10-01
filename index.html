@@ -50,8 +50,8 @@
               class="filter-container mt-10 md:mt-10 lg:mt-0 flex items-center flex-col md:flex-row md:pr-0 pr-6"">
               <div class="pb-5">
                 <label for="type">TIPO</label>
-                <select class="sort-gral" name="type" id="sort-type">
-                  <option value="COMICS">COMICS</option>
+                <select class="sort-gral sort-type" name="type" id="marvel-select">
+                  <option value="COMICS" selected>COMICS</option>
                   <option value="PERSONAJES">PERSONAJES</option>
                 </select>
               </div>
@@ -62,12 +62,15 @@
                   <option value="Z-A">Z-A</option>
                 </select>
               </div>
-              <button class="btn-search mb-5">BUSCAR</button>
+              <button id="btn-search" class="btn-search mb-5">BUSCAR</button>
             </div>
           </div>
         </div>
         <h2 class="search-title">Resultados</h2>
         <p class="total-results">1564 RESULTADOS</p>
+        <div id="cards-container">
+
+        </div>
       </div>
     </main>
     <footer class="footer-comic">
