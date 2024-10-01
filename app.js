@@ -67,6 +67,8 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
     }
   }
 
+  showLoader();
+
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -75,6 +77,7 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
       let results = data.data.results;
       results.forEach((card) => createCard(card));
       disableButtons();
+      hideLoader();
     })
     .catch((error) => console.error("Error al obtener los datos:", error));
 }
@@ -132,3 +135,16 @@ lastPage.addEventListener("click", () => {
   offset = Math.floor((totalResults - 1) / limit) * limit;
   btnSearch();
 });
+
+// LOADER
+const loader = document.getElementById("loader");
+
+function showLoader() {
+  loader.style.display = "flex";
+  cardsContainer.style.display = "none";
+}
+
+function hideLoader() {
+  loader.style.display = "none";
+  cardsContainer.style.display = "flex";
+}
