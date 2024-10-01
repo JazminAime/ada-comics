@@ -32,6 +32,10 @@ function clearCards() {
   cardsContainer.innerHTML = "";
 }
 
+// TOTAL RESULTADOS
+const total = document.getElementById("total-results");
+let totalResults = 0;
+
 // Funcion para obtener personajes o comics
 function fetchMarvelData(endpoint) {
   clearCards();
@@ -41,6 +45,8 @@ function fetchMarvelData(endpoint) {
   )
     .then((response) => response.json())
     .then((data) => {
+      totalResults = data.data.total;
+      total.textContent = `${totalResults} RESULTADOS`;
       const results = data.data.results;
       results.forEach((card) => createCard(card));
     })
@@ -87,6 +93,12 @@ prevPage.addEventListener("click", () => {
   }
 });
 
-firstPage.addEventListener("click", () => {});
+firstPage.addEventListener("click", () => {
+  offset = 0;
+  btnSearch();
+});
 
-lastPage.addEventListener("click", () => {});
+lastPage.addEventListener("click", () => {
+  offset = Math.floor((totalResults - 1) / limit) * limit;
+  btnSearch();
+});
