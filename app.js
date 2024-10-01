@@ -23,7 +23,6 @@ function createCard(card) {
 
   cardItem.appendChild(cardImage);
   cardItem.appendChild(cardName);
-  //cardItem.appendChild(descriptionCard);
   cardsContainer.appendChild(cardItem);
 }
 
@@ -47,12 +46,19 @@ function disableButtons() {
 }
 
 // Funcion para obtener personajes o comics
-function fetchMarvelData(endpoint) {
+function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
   clearCards();
 
-  fetch(
-    `${apiUrl}${endpoint}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`
-  )
+  let url;
+
+  if (searchValue) {
+    const searchParameter = `${searchType}StartsWith=${searchValue}`;
+    url = `${apiUrl}${endpoint}?${searchParameter}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+  } else {
+    url = `${apiUrl}${endpoint}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+  }
+
+  fetch(url)
     .then((response) => response.json())
     .then((data) => {
       totalResults = data.data.total;
@@ -69,11 +75,15 @@ const searchButton = document.getElementById("btn-search");
 
 function btnSearch() {
   const selectedValue = selectedOption.value.toUpperCase();
+  const searchValue = document
+    .getElementById("input-search")
+    .value.trim()
+    .toUpperCase();
 
   if (selectedValue === "PERSONAJES") {
-    fetchMarvelData("characters");
+    fetchMarvelData("characters", searchValue, "name");
   } else if (selectedValue === "COMICS") {
-    fetchMarvelData("comics");
+    fetchMarvelData("comics", searchValue, "title");
   }
 }
 
