@@ -50,12 +50,21 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
   clearCards();
 
   let url;
+  const orderSelect = document.getElementById("sort-order");
 
   if (searchValue) {
     const searchParameter = `${searchType}StartsWith=${searchValue}`;
-    url = `${apiUrl}${endpoint}?${searchParameter}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    if (orderSelect.value === "A-Z") {
+      url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "Z-A") {
+      url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=-${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    }
   } else {
-    url = `${apiUrl}${endpoint}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    if (orderSelect.value === "A-Z") {
+      url = `${apiUrl}${endpoint}?orderBy=${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "Z-A") {
+      url = `${apiUrl}${endpoint}?orderBy=-${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    }
   }
 
   fetch(url)
@@ -63,7 +72,7 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
     .then((data) => {
       totalResults = data.data.total;
       total.textContent = `${totalResults} RESULTADOS`;
-      const results = data.data.results;
+      let results = data.data.results;
       results.forEach((card) => createCard(card));
       disableButtons();
     })
