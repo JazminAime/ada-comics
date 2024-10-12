@@ -16,7 +16,8 @@ function createCard(card) {
   cardItem.classList.add("card");
 
   const cardImage = document.createElement("img");
-  cardImage.src = `${card.thumbnail.path}.${card.thumbnail.extension}`;
+  const imagePath = card.thumbnail.path.replace(/^http:/, "https:");
+  cardImage.src = `${imagePath}.${card.thumbnail.extension}`;
   cardImage.alt = card.name;
 
   const cardName = document.createElement("h3");
@@ -91,19 +92,29 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
   const orderSelect = document.getElementById("sort-order");
 
   if (searchValue) {
-    const searchParameter = ` ${searchType}StartsWith=${searchValue}`;
+    const searchParameter = `${searchType}StartsWith=${searchValue}`;
+
     if (orderSelect.value === "A-Z") {
       url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     } else if (orderSelect.value === "Z-A") {
       url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=-${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "MAS NUEVOS") {
+      url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=-modified&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "MAS VIEJOS") {
+      url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=modified&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     }
   } else {
     if (orderSelect.value === "A-Z") {
       url = `${apiUrl}${endpoint}?orderBy=${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     } else if (orderSelect.value === "Z-A") {
       url = `${apiUrl}${endpoint}?orderBy=-${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "MAS NUEVOS") {
+      url = `${apiUrl}${endpoint}?orderBy=-modified&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "MAS VIEJOS") {
+      url = `${apiUrl}${endpoint}?orderBy=modified&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     }
   }
+
   showLoader();
 
   fetch(url)
@@ -121,9 +132,9 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
 
 // Click boton buscar
 const searchButton = document.getElementById("btn-search");
-const selectedValue = selectedOption.value.toUpperCase();
 
 function btnSearch() {
+  const selectedValue = selectedOption.value.toUpperCase();
   const searchValue = document
     .getElementById("input-search")
     .value.trim()
