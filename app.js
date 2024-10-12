@@ -8,6 +8,7 @@ const hash = "8314252163cf98e60d2dd0754a7281a8";
 // DOM select, contenedor cards
 const cardsContainer = document.getElementById("cards-container");
 const selectedOption = document.getElementById("marvel-select");
+const options = document.querySelectorAll(".comic-option");
 
 // Funcion para crear tarjetas
 function createCard(card) {
@@ -15,7 +16,8 @@ function createCard(card) {
   cardItem.classList.add("card");
 
   const cardImage = document.createElement("img");
-  cardImage.src = `${card.thumbnail.path}.${card.thumbnail.extension}`;
+  const imagePath = card.thumbnail.path.replace(/^http:/, "https:");
+  cardImage.src = `${imagePath}.${card.thumbnail.extension}`;
   cardImage.alt = card.name;
 
   const cardName = document.createElement("h3");
@@ -45,6 +47,43 @@ function disableButtons() {
   lastPage.disabled = offset >= maxOffset;
 }
 
+// Funcion para opciones - personajes - comics
+function viewOptions() {
+  const selectedValue = selectedOption.value;
+  const orderSelect = document.getElementById("sort-order");
+
+  const options = orderSelect.querySelectorAll("option");
+  options.forEach((option) => {
+    if (selectedValue === "COMICS") {
+      if (
+        option.value === "MAS NUEVOS" ||
+        option.value === "MAS VIEJOS" ||
+        option.value === "A-Z" ||
+        option.value === "Z-A"
+      ) {
+        option.style.display = "block";
+      } else {
+        option.style.display = "none";
+      }
+    } else if (selectedValue === "PERSONAJES") {
+      if (option.value === "MAS NUEVOS" || option.value === "MAS VIEJOS") {
+        option.style.display = "none";
+      } else {
+        option.style.display = "block";
+      }
+    }
+  });
+
+  if (selectedValue === "PERSONAJES") {
+    orderSelect.value = "A-Z";
+  }
+}
+
+// Evento para la seleccion
+selectedOption.addEventListener("change", () => {
+  viewOptions();
+});
+
 // Funcion para obtener personajes o comics
 function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
   clearCards();
@@ -54,16 +93,25 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
 
   if (searchValue) {
     const searchParameter = `${searchType}StartsWith=${searchValue}`;
+
     if (orderSelect.value === "A-Z") {
       url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     } else if (orderSelect.value === "Z-A") {
       url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=-${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "MAS NUEVOS") {
+      url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=-modified&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "MAS VIEJOS") {
+      url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=modified&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     }
   } else {
     if (orderSelect.value === "A-Z") {
       url = `${apiUrl}${endpoint}?orderBy=${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     } else if (orderSelect.value === "Z-A") {
       url = `${apiUrl}${endpoint}?orderBy=-${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "MAS NUEVOS") {
+      url = `${apiUrl}${endpoint}?orderBy=-modified&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
+    } else if (orderSelect.value === "MAS VIEJOS") {
+      url = `${apiUrl}${endpoint}?orderBy=modified&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     }
   }
 
@@ -102,7 +150,10 @@ function btnSearch() {
 searchButton.addEventListener("click", btnSearch);
 
 // Cargar comics al iniciar
-window.onload = () => fetchMarvelData("comics");
+window.onload = () => {
+  viewOptions();
+  fetchMarvelData("comics");
+};
 
 // PAGINACION
 // const pagination = document.getElementById("pagination");
