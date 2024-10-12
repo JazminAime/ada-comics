@@ -8,6 +8,7 @@ const hash = "8314252163cf98e60d2dd0754a7281a8";
 // DOM select, contenedor cards
 const cardsContainer = document.getElementById("cards-container");
 const selectedOption = document.getElementById("marvel-select");
+const options = document.querySelectorAll(".comic-option");
 
 // Funcion para crear tarjetas
 function createCard(card) {
@@ -45,6 +46,43 @@ function disableButtons() {
   lastPage.disabled = offset >= maxOffset;
 }
 
+// Funcion para opciones - personajes - comics
+function viewOptions() {
+  const selectedValue = selectedOption.value;
+  const orderSelect = document.getElementById("sort-order");
+
+  const options = orderSelect.querySelectorAll("option");
+  options.forEach((option) => {
+    if (selectedValue === "COMICS") {
+      if (
+        option.value === "MAS NUEVOS" ||
+        option.value === "MAS VIEJOS" ||
+        option.value === "A-Z" ||
+        option.value === "Z-A"
+      ) {
+        option.style.display = "block";
+      } else {
+        option.style.display = "none";
+      }
+    } else if (selectedValue === "PERSONAJES") {
+      if (option.value === "MAS NUEVOS" || option.value === "MAS VIEJOS") {
+        option.style.display = "none";
+      } else {
+        option.style.display = "block";
+      }
+    }
+  });
+
+  if (selectedValue === "PERSONAJES") {
+    orderSelect.value = "A-Z";
+  }
+}
+
+// Evento para la seleccion
+selectedOption.addEventListener("change", () => {
+  viewOptions();
+});
+
 // Funcion para obtener personajes o comics
 function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
   clearCards();
@@ -53,7 +91,7 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
   const orderSelect = document.getElementById("sort-order");
 
   if (searchValue) {
-    const searchParameter = `${searchType}StartsWith=${searchValue}`;
+    const searchParameter = ` ${searchType}StartsWith=${searchValue}`;
     if (orderSelect.value === "A-Z") {
       url = `${apiUrl}${endpoint}?${searchParameter}&orderBy=${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     } else if (orderSelect.value === "Z-A") {
@@ -66,7 +104,6 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
       url = `${apiUrl}${endpoint}?orderBy=-${searchType}&ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`;
     }
   }
-
   showLoader();
 
   fetch(url)
@@ -84,9 +121,9 @@ function fetchMarvelData(endpoint, searchValue = "", searchType = "") {
 
 // Click boton buscar
 const searchButton = document.getElementById("btn-search");
+const selectedValue = selectedOption.value.toUpperCase();
 
 function btnSearch() {
-  const selectedValue = selectedOption.value.toUpperCase();
   const searchValue = document
     .getElementById("input-search")
     .value.trim()
@@ -102,7 +139,10 @@ function btnSearch() {
 searchButton.addEventListener("click", btnSearch);
 
 // Cargar comics al iniciar
-window.onload = () => fetchMarvelData("comics");
+window.onload = () => {
+  viewOptions();
+  fetchMarvelData("comics");
+};
 
 // PAGINACION
 // const pagination = document.getElementById("pagination");
