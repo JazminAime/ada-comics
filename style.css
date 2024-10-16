@@ -362,3 +362,41 @@ animation-timing-function: linear
 @keyframes s2{ 
 100%{transform: rotate(.5turn)}
 }
+
+/* DETALLES CARD */
+.details {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 20px;
+  background-color: crimson;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.details h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.details p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.btn-back {
+  font-size: 20px;
+  padding: 8px 12px;
+  color: white;
+  margin-left: 20px;
+  margin-top: 30px;
+  font-weight: bolder;
+  border-radius: 25px;
+  background-color: rgb(254, 105, 105);
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-back:hover {
+  transform: scale(1.1);
+}
