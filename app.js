@@ -83,7 +83,13 @@ function createComicCard(comic) {
 // Función para obtener detalles del personaje y crear su tarjeta
 function fetchCharacterDetails(resourceURI, charactersContainer) {
   const characterUrl =
-    resourceURI + "?ts=" + ts + "&apikey=" + publicKey + "&hash=" + hash;
+    resourceURI.replace(/^http:/, "https:") +
+    "?ts=" +
+    ts +
+    "&apikey=" +
+    publicKey +
+    "&hash=" +
+    hash;
 
   fetch(characterUrl)
     .then((response) => response.json())
@@ -100,7 +106,13 @@ function fetchCharacterDetails(resourceURI, charactersContainer) {
 // Función para obtener detalles del cómic y crear su tarjeta
 function fetchComicDetails(resourceURI, comicsContainer) {
   const comicUrl =
-    resourceURI + "?ts=" + ts + "&apikey=" + publicKey + "&hash=" + hash;
+    resourceURI.replace(/^http:/, "https:") +
+    "?ts=" +
+    ts +
+    "&apikey=" +
+    publicKey +
+    "&hash=" +
+    hash;
 
   fetch(comicUrl)
     .then((response) => response.json())
