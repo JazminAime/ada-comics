@@ -410,3 +410,12 @@ function viewOptions() {
 selectedOption.addEventListener("change", () => {
   viewOptions();
 });
+
+// Dark Mode
+const btnDark = document.getElementById("toggle-dark-mode");
+const cont = document.getElementById("dark");
+
+btnDark.addEventListener("click", () => {
+  cont.classList.toggle("dark-mode");
+  btnDark.classList.toggle("dark-mode");
+});

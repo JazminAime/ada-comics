@@ -481,3 +481,88 @@ animation-timing-function: linear
     height: 450px; 
   }
 }
+
+/* MODO OSCURO */
+.comic-principal.dark-mode {
+  background: rgb(55,54,52);
+  background: linear-gradient(90deg, rgba(55,54,52,1) 23%, rgba(223,212,177,1) 100%);
+  color: #ffffff; 
+}
+
+#toggle-dark-mode img {
+  width: 50px;
+  height: 50px; 
+  border: none; 
+}
+
+#toggle-dark-mode.dark-mode img {
+  content: url('./assets/img/claro.png'); 
+}
+
+.comic-principal.dark-mode #input-search {
+  color: black;
+}
+
+.comic-principal.dark-mode .sort-gral,
+.comic-principal.dark-mode .sort-type {
+    background-color: #333333; 
+    color: #ffffff; 
+    border: 1px solid #ffffff; 
+}
+
+.card h3 {
+    color: #000000; 
+}
+
+.comic-principal.dark-mode .total-results {
+  color: wheat;
+}
+
+.comic-principal.dark-mode .description {
+  color: #ffffff; 
+  font-weight: bold;
+  padding-right: 5px;
+}
+
+.comic-principal.dark-mode .writers {
+  color: #ffffff;
+}
+
+.comic-principal.dark-mode .release-date {
+  color: #ffffff;
+}
+
+.comic-principal.dark-mode .details-text h2 {
+  color: #770202;
+}
+
+.comic-principal.dark-mode .details-description {
+  color: #cccccc; 
+}
+
+.comic-principal.dark-mode .custom-loader::before,
+.comic-principal.dark-mode .custom-loader::after {    
+  content:"";
+  grid-area: 1/1;
+  --c: radial-gradient(farthest-side,#fdfdfd 92%,hsla(40, 89%, 52%, 0));
+  background: 
+    var(--c) 50%  0, 
+    var(--c) 50%  100%, 
+    var(--c) 100% 50%, 
+    var(--c) 0    50%;
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  animation: s2 1s infinite;
+}
+
+.comic-principal.dark-mode .custom-loader::before {
+  margin:8px;
+  filter:hue-rotate(45deg);
+  background-size: 16px 16px;
+  animation-timing-function: linear
+  }
+  
+  @keyframes s2{ 
+  100%{transform: rotate(.5turn)}
+  }
+  
