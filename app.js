@@ -208,71 +208,80 @@ function details(card) {
     }
 
     detailsHtml = `
-      <h2>${card.title}</h2>
-      <img src="${card.thumbnail.path.replace(/^http:/, "https:")}.${
+      <div class="details-content">
+        <div class="details-image">
+          <img src="${card.thumbnail.path.replace(/^http:/, "https:")}.${
       card.thumbnail.extension
     }" alt="${card.title}" class="detail-image" />
-      <p><strong>Fecha de lanzamiento: ${releaseDate}</strong></p>
-      <p>Guionistas: ${writers}</p>
-      <p>Descripción: ${
-        card.description || "No hay descripción disponible."
-      }</p>
-      ${
-        characters.length > 0
-          ? `<p><strong>Cantidad de personajes incluidos: ${characters.length}</strong></p>
-             <h3>Personajes incluidos:</h3>
-             <div id="characters-container" class="cards-container"></div>`
-          : `<p>No hay personajes incluidos.</p>`
-      }
-      <button id="back-button" class="btn-back">Volver</button>
-    `;
+        </div>
+        <div class="details-text">
+          <h2>${card.title}</h2>
+          <p class="release-date"><strong>Fecha de lanzamiento: ${releaseDate}</strong></p>
+          <p class="writers">Guionistas: ${writers}</p>
+          <p class="description">Descripción: ${
+            card.description || "No hay descripción disponible."
+          }</p>
+        </div>
+      </div>`;
 
+    detailsHtml += `<p class="character-count"><strong>Cantidad de personajes incluidos: ${characters.length}</strong></p>`;
     detailsContainer.innerHTML = detailsHtml;
 
     // Crear tarjetas para los personajes
-    const charactersContainer = document.getElementById("characters-container");
-    charactersContainer.style.display = "flex";
-    charactersContainer.style.flexWrap = "wrap";
-    charactersContainer.style.justifyContent = "center";
-    charactersContainer.style.gap = "20px";
+    if (characters.length > 0) {
+      const charactersContainer = document.createElement("div");
+      charactersContainer.id = "characters-container";
+      charactersContainer.style.display = "flex";
+      charactersContainer.style.flexWrap = "wrap";
+      charactersContainer.style.justifyContent = "center";
+      charactersContainer.style.gap = "20px";
+      detailsContainer.appendChild(charactersContainer);
 
-    characters.forEach((character) => {
-      fetchCharacterDetails(character.resourceURI, charactersContainer);
-    });
+      characters.forEach((character) => {
+        fetchCharacterDetails(character.resourceURI, charactersContainer);
+      });
+    }
   } else if (selectedOption.value === "PERSONAJES") {
     const comicsList = card.comics.items;
 
     detailsHtml = `
-      <h2>${card.name}</h2>
-      <img src="${card.thumbnail.path.replace(/^http:/, "https:")}.${
+    <div class="details-content">
+      <div class="details-image">
+        <img src="${card.thumbnail.path.replace(/^http:/, "https:")}.${
       card.thumbnail.extension
     }" alt="${card.name}" class="detail-image" />
-      <p><strong>Descripción:</strong> ${
-        card.description || "No hay descripción disponible."
-      }</p>
-      ${
-        comicsList.length > 0
-          ? `<p><strong>Cantidad de cómics en los que aparece: ${comicsList.length}</strong></p>
-            <h3>Cómics en los que aparece:</h3>
-            <div id="comics-container" class="cards-container"></div>`
-          : `<p>No hay cómics en los que aparece.</p>`
-      }
-      <button id="back-button" class="btn-back">Volver</button>
-    `;
+      </div>
+      <div class="details-text">
+        <h2>${card.name}</h2>
+        <p class="description"><strong>Descripción:</strong> ${
+          card.description || "No hay descripción disponible."
+        }</p>
+      </div>
+    </div>`;
 
+    detailsHtml += `<p class="comic-count"><strong>Cantidad de comics incluidos: ${comicsList.length}</strong></p>`;
     detailsContainer.innerHTML = detailsHtml;
 
     // Crear tarjetas para los cómics
-    const comicsContainer = document.getElementById("comics-container");
-    comicsContainer.style.display = "flex";
-    comicsContainer.style.flexWrap = "wrap";
-    comicsContainer.style.justifyContent = "center";
-    comicsContainer.style.gap = "20px";
+    if (comicsList.length > 0) {
+      const comicsContainer = document.createElement("div");
+      comicsContainer.id = "comics-container";
+      comicsContainer.style.display = "flex";
+      comicsContainer.style.flexWrap = "wrap";
+      comicsContainer.style.justifyContent = "center";
+      comicsContainer.style.gap = "20px";
+      detailsContainer.appendChild(comicsContainer);
 
-    comicsList.forEach((comic) => {
-      fetchComicDetails(comic.resourceURI, comicsContainer);
-    });
+      comicsList.forEach((comic) => {
+        fetchComicDetails(comic.resourceURI, comicsContainer);
+      });
+    }
   }
+  const btn = document.createElement("button");
+  btn.id = "back-button";
+  btn.className = "btn-back";
+  btn.textContent = "Volver";
+  detailsContainer.appendChild(btn);
 
   const backBtn = document.getElementById("back-button");
   backBtn.addEventListener("click", () => {
@@ -342,6 +351,12 @@ function btnSearch() {
     .getElementById("input-search")
     .value.trim()
     .toUpperCase();
+
+  const detailsContainer = document.getElementById("details-container");
+  detailsContainer.style.display = "none";
+  detailsContainer.innerHTML = "";
+
+  cardsContainer.style.display = "flex";
 
   if (selectedValue === "PERSONAJES") {
     fetchMarvelData("characters", searchValue, "name");

@@ -400,3 +400,84 @@ animation-timing-function: linear
 .btn-back:hover {
   transform: scale(1.1);
 }
+
+/* ESTILOS DESCRIPCION DE COMICS Y PERSONAJES */
+
+.details-content {
+  display: flex;
+  align-items: flex-start; 
+  gap: 20px; 
+}
+
+.details-image {
+  margin-left: 100px; 
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.details-text h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #902209;
+}
+
+.detail-image {
+  width: 100%;
+  height: 450px;
+  object-fit: fill; 
+}
+
+#characters-container, #comics-container {
+  margin-top: 20px; 
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.release-date {
+  font-size: 22px; 
+  color: #555; 
+  margin: 10px 0; 
+}
+
+.writers {
+  font-size: 22px;
+  color: #333; 
+  margin: 10px 0; 
+}
+
+.description {
+  font-size: 20px; 
+  color: #444; 
+  margin: 10px 0; 
+}
+
+.character-count, .comic-count {
+  margin: 20px 100px; 
+  text-align: center;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) { 
+  .details-content {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .details-image {
+    margin-left: 0;
+    margin-bottom: 20px;
+    max-width: 300px;
+  }
+
+  .details-text {
+    text-align: center; 
+    padding: 5px;
+  }
+
+  .detail-image {
+    width: 100%;
+    height: 450px; 
+  }
+}
